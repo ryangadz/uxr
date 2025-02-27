@@ -54,6 +54,25 @@
             font-size: 24px;
             color: black;
         }
+
+        #score-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        }
+        .panel {
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -120,10 +139,19 @@
 
     function endTest() {
         score = (new Date().getTime() - startTime) / 1000; // convert milliseconds to seconds
-        alert(`Your time is ${score.toFixed(2)} seconds\nYour accuracy is ${accuracy}% (${missedClicks} missed clicks)`);
-        document.removeEventListener('click', checkAccuracy);
+        accuracy = Math.round(accuracy * 100) / 100; // round accuracy to two decimal places
+        document.getElementById('time').textContent = score.toFixed(2);
+        document.getElementById('accuracy').textContent = accuracy;
+        document.getElementById('score-panel').style.display = 'block';
     }
     
     </script>
 </body>
+<div id="score-panel" style="display: none;">
+    <div class="panel">
+      <h2>Your Score:</h2>
+      <p>Time: <span id="time"></span> seconds</p>
+      <p>Accuracy: <span id="accuracy"></span>%</p>
+    </div>
+  </div>
 </html>
